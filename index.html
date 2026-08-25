@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>การพยากรณ์ปริมาณน้ำเข้าคลองและส่งน้ำ</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- SheetJS สำหรับอ่าน Excel -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <div class="logo-area">
+
+        <img src="image/logo.png"
+             alt="โลโก้"
+             class="logo">
+
+        <div class="site-title">
+
+            <h1>
+                การพยากรณ์ปริมาณน้ำเข้าคลองและส่งน้ำ
+            </h1>
+
+            <p>
+                ของโครงการส่งน้ำและบำรุงรักษาแม่แตง
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <nav class="navbar">
+
+        <a href="index.html"
+           class="nav-item active">
+
+            <span>⌂</span>
+
+            หน้าหลัก
+
+        </a>
+
+
+        <a href="source.html"
+           class="nav-item">
+
+            <span>▣</span>
+
+            ที่มาและความสำคัญ
+
+        </a>
+
+
+        <a href="about.html"
+           class="nav-item">
+
+            <span>ⓘ</span>
+
+            เกี่ยวกับเรา
+
+        </a>
+
+
+        <button class="login-btn"
+                onclick="loginAlert()">
+
+            ♙ &nbsp; เข้าสู่ระบบ
+
+        </button>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="dashboard">
+
+
+    <!-- ================= LEFT ================= -->
+
+    <section class="left-column">
+
+
+        <!-- ================= ปริมาณน้ำเข้าคลอง ================= -->
+
+        <div class="card water-card">
+
+
+            <div class="card-title">
+
+                <div class="title-icon blue">
+                    💧
+                </div>
+
+                <h2>
+                    ปริมาณน้ำเข้าคลอง
+                </h2>
+
+            </div>
+
+
+            <div class="water-content">
+
+
+                <div class="year-select">
+
+
+                    <!-- เลือกปี -->
+
+                    <div class="year-row">
+
+                        <label for="yearSelect">
+                            เลือกปี
+                        </label>
+
+
+                        <select id="yearSelect">
+
+                            <option value="2568">ปี 2568</option>
+                            <option value="2567">ปี 2567</option>
+                            <option value="2566">ปี 2566</option>
+                            <option value="2565">ปี 2565</option>
+                            <option value="2564">ปี 2564</option>
+                            <option value="2563">ปี 2563</option>
+                            <option value="2562">ปี 2562</option>
+                            <option value="2561">ปี 2561</option>
+                            <option value="2560">ปี 2560</option>
+                            <option value="2559">ปี 2559</option>
+                            <option value="2558">ปี 2558</option>
+                            <option value="2557">ปี 2557</option>
+                            <option value="2556">ปี 2556</option>
+                            <option value="2555">ปี 2555</option>
+                            <option value="2554">ปี 2554</option>
+                            <option value="2553">ปี 2553</option>
+                            <option value="2552">ปี 2552</option>
+                            <option value="2551">ปี 2551</option>
+                            <option value="2550">ปี 2550</option>
+                            <option value="2549">ปี 2549</option>
+                            <option value="2548">ปี 2548</option>
+                            <option value="2547">ปี 2547</option>
+                            <option value="2546">ปี 2546</option>
+                            <option value="2545">ปี 2545</option>
+                            <option value="2544">ปี 2544</option>
+                            <option value="2543">ปี 2543</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- ปริมาณน้ำเข้าคลองที่คำนวณจาก Excel -->
+
+                    <div class="water-value">
+
+                        <strong id="waterInValue">
+                            -
+                        </strong>
+
+                        <span>
+                            ล้าน ลบ.ม.
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- =================================================
+                     รูปพื้นหลัง/รูปคลอง
+                     ปรับขนาดรูปได้ที่ .water-image ใน style.css
+                     ================================================= -->
+
+                <div class="water-image">
+
+                    <!-- รูปนี้คือ image/00.jfif -->
+
+                    <img src="image/00.jfif"
+                         alt="คลองแม่แตง">
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ================= GRAPH ================= -->
+
+        <div class="card graph-card">
+
+
+            <div class="card-title graph-title">
+
+                <div class="title-icon blue">
+                    ↗
+                </div>
+
+                <h2>
+                    ผลการพยากรณ์ปริมาณน้ำเข้าคลองและส่งน้ำ
+                </h2>
+
+            </div>
+
+
+            <div class="chart-container">
+
+                <canvas id="waterChart"></canvas>
+
+            </div>
+
+
+            <p class="chart-note">
+
+                หมายเหตุ: ข้อมูล ณ วันที่ 30 พฤษภาคม 2568
+
+            </p>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ================= RIGHT ================= -->
+
+    <section class="right-column">
+
+
+        <!-- ================= 4 DATA ================= -->
+
+        <div class="card summary-card">
+
+
+            <!-- ================= ปริมาณส่งน้ำ ================= -->
+
+            <div class="summary-item">
+
+                <div class="summary-icon blue-bg">
+                    〰
+                </div>
+
+                <div>
+
+                    <h3>
+                        ปริมาณส่งน้ำ
+                    </h3>
+
+                    <strong class="blue-text"
+                            id="totalSendValue">
+                        -
+                    </strong>
+
+                    <span>
+                        ล้าน ลบ.ม.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= ปริมาณรวมส่งประปา ================= -->
+
+            <div class="summary-item">
+
+                <div class="summary-icon green-bg">
+                    ♟
+                </div>
+
+                <div>
+
+                    <h3>
+                        ปริมาณรวมส่งประปา
+                    </h3>
+
+                    <strong class="green-text"
+                            id="waterSupplyValue">
+                        -
+                    </strong>
+
+                    <span>
+                        ล้าน ลบ.ม.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= ส่งนิเวศ ================= -->
+
+            <div class="summary-item">
+
+                <div class="summary-icon orange-bg">
+                    🌱
+                </div>
+
+                <div>
+
+                    <h3>
+                        ส่งนิเวศ
+                    </h3>
+
+                    <strong class="orange-text"
+                            id="ecoValue">
+                        -
+                    </strong>
+
+                    <span>
+                        ล้าน ลบ.ม.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= คงเหลือเกษตร ================= -->
+
+            <div class="summary-item">
+
+                <div class="summary-icon purple-bg">
+                    🌾
+                </div>
+
+                <div>
+
+                    <h3>
+                        คงเหลือเกษตร
+                    </h3>
+
+                    <strong class="purple-text"
+                            id="agricultureValue">
+                        -
+                    </strong>
+
+                    <span>
+                        ล้าน ลบ.ม.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ================= PIE CHART ================= -->
+
+        <div class="card pie-card">
+
+
+            <div class="card-title">
+
+                <div class="title-icon blue">
+                    ◔
+                </div>
+
+                <h2>
+                    สัดส่วนการใช้น้ำ
+                </h2>
+
+            </div>
+
+
+            <div class="pie-content">
+
+
+                <div class="pie-chart">
+
+                    <canvas id="usageChart"></canvas>
+
+                </div>
+
+
+                <div class="legend">
+
+
+                    <div>
+
+                        <i class="dot blue-dot"></i>
+
+                        ประปาอุโมง
+
+                    </div>
+
+
+                    <div>
+
+                        <i class="dot green-dot"></i>
+
+                        ประปาหางดง
+
+                    </div>
+
+
+                    <div>
+
+                        <i class="dot orange-dot"></i>
+
+                        ส่งนิเวศ
+
+                    </div>
+
+
+                    <div>
+
+                        <i class="dot purple-dot"></i>
+
+                        คงเหลือเกษตร
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+
+    <div class="footer-left">
+
+
+        <div class="footer-logo">
+
+            <img src="image/logo.png"
+                 alt="โลโก้">
+
+        </div>
+
+
+        <div>
+
+            <strong>
+                โครงการส่งน้ำและบำรุงรักษาแม่แตง
+            </strong>
+
+            <p>
+                199 หมู่ 2 ต.แม่แตง อ.แม่แตง จ.เชียงใหม่ 50150
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="footer-contact">
+
+        ☎ &nbsp;053-471-396
+
+    </div>
+
+
+
+    <div class="footer-contact">
+
+        ✉ &nbsp;maetaeng@rid.go.th
+
+    </div>
+
+
+
+    <div class="footer-links">
+
+        <a href="#">
+            ติดต่อสอบถาม
+        </a>
+
+        <span>|</span>
+
+        <a href="#">
+            นโยบายเว็บไซต์
+        </a>
+
+        <span>|</span>
+
+        <a href="#">
+            แผนผังเว็บไซต์
+        </a>
+
+    </div>
+
+
+</footer>
+
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
